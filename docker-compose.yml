@@ -67,16 +67,19 @@ services:
       - "443:443"
 
   coturn:
-    image: coturn/coturn:${COTURN_VERSION}
+    build:
+      context: ./coturn
+      args:
+        - COTURN_VERSION
     restart: always
     ports:
       - "${COTURN_PORT:?COTURN_PORT is not set or empty}:3478"
       - "${COTURN_PORT:?COTURN_PORT is not set or empty}:3478/udp"
     depends_on:
       - redis
-    volumes:
-      - ./config/turnserver.conf.v:/etc/turnserver.conf
     environment:
+      - COTURN_PORT=${COTURN_PORT}
       - COTURN_SECRET=${COTURN_SECRET}
       - COTURN_REALM=${COTURN_REALM}
+      - REDIS_PASS=${REDIS_PASS}
 

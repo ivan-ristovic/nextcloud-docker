@@ -4,13 +4,6 @@ set -xe;
 
 source .env
 
-echo 'Generating coTURN config...'
-cp config/turnserver.conf config/turnserver.conf.v
-sed -i "s/\(listening-port=\).\+/\1${COTURN_PORT}/" config/turnserver.conf.v
-sed -i "s/\(static-auth-secret=\).\+/\1${COTURN_SECRET}/" config/turnserver.conf.v
-sed -i "s/\(realm=\).\+/\1${COTURN_REALM}/" config/turnserver.conf.v
-sed -i "s/\(redis-userdb=\"ip=redis password=\).\+/\1${REDIS_PASS}\"/" config/turnserver.conf.v
-
 echo 'Creating nececary directories in $DATA_ROOT'
 mkdir -p "${DATA_ROOT}"/{acme-challenge,acme.sh,ssl,postgres,nextcloud}
 
