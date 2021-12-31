@@ -52,9 +52,11 @@ services:
 
   proxy:
     restart: always
-    image: nginx:mainline-alpine
+    build:
+      context: ./nginx
+      args:
+        - NGINX_VERSION
     volumes:
-      - ./config/nginx.conf:/etc/nginx/templates/default.conf.template
       - ${DATA_ROOT}/ssl:/etc/nginx/ssl
       - ${DATA_ROOT}/acme-challenge:/acme-challenge
     environment:
