@@ -9,7 +9,7 @@ services:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASS}
     volumes:
-      - ${FS_ROOT}/db:/var/lib/postgresql/data
+      - ${DATA_ROOT}/db:/var/lib/postgresql/data
 
   redis:
     restart: always
@@ -20,10 +20,10 @@ services:
     restart: always
     image: nextcloud:${NEXTCLOUD_VERSION}-apache
     volumes:
-      - ${FS_ROOT}/nextcloud/html:/var/www/html
-      - ${FS_ROOT}/nextcloud/data:/var/www/html/data
-      - ${FS_ROOT}/nextcloud/config:/var/www/html/config
-      - ${FS_ROOT}/nextcloud/custom_apps:/var/www/html/custom_apps
+      - ${DATA_ROOT}/nextcloud/html:/var/www/html
+      - ${FILES_ROOT}:/var/www/html/data
+      - ${DATA_ROOT}/nextcloud/config:/var/www/html/config
+      - ${DATA_ROOT}/nextcloud/custom_apps:/var/www/html/custom_apps
     depends_on: 
       - postgres
       - redis
@@ -42,9 +42,9 @@ services:
     build:
       context: ./acme
     volumes:
-      - ${FS_ROOT}/acme.sh:/acme.sh
-      - ${FS_ROOT}/ssl:/ssl
-      - ${FS_ROOT}/acme-challenge:/acme-challenge
+      - ${DATA_ROOT}/acme.sh:/acme.sh
+      - ${DATA_ROOT}/ssl:/ssl
+      - ${DATA_ROOT}/acme-challenge:/acme-challenge
     environment:
       INSTALL_UID: 101
       INSTALL_GID: 101
@@ -55,8 +55,8 @@ services:
     image: nginx:mainline-alpine
     volumes:
       - ./config/nginx.conf:/etc/nginx/templates/default.conf.template
-      - ${FS_ROOT}/ssl:/etc/nginx/ssl
-      - ${FS_ROOT}/acme-challenge:/acme-challenge
+      - ${DATA_ROOT}/ssl:/etc/nginx/ssl
+      - ${DATA_ROOT}/acme-challenge:/acme-challenge
     environment:
       DOMAINS: ${DOMAINS}
     depends_on: 
