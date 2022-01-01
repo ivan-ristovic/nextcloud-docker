@@ -18,7 +18,10 @@ services:
 
   nextcloud:
     restart: always
-    image: nextcloud:${NEXTCLOUD_VERSION}-apache
+    build:
+      context: ./nextcloud
+      args:
+        - NEXTCLOUD_VERSION
     volumes:
       - ${DATA_ROOT}/nextcloud/html:/var/www/html
       - ${FILES_ROOT}:/var/www/html/data
