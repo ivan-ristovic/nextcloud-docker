@@ -3,6 +3,7 @@ FROM nextcloud:${NEXTCLOUD_VERSION}-apache
 
 RUN apt-get update && apt-get install -y \
     supervisor \
+    ffmpeg \
   && rm -rf /var/lib/apt/lists/* \
   && mkdir /var/log/supervisord /var/run/supervisord
 
