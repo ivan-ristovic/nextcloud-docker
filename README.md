@@ -1,2 +1,2 @@
 # nextcloud-docker
-My Nextcloud docker-compose stack
+Configuration for sel-hosted Nextcloud docker-compose stack
