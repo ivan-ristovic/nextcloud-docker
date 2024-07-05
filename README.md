@@ -1,2 +1,2 @@
 # nextcloud-docker
-Configuration for self-hosted Nextcloud docker-compose stack
+A simple docker-compose stack configuration for a self-hosted Nextcloud instance.
